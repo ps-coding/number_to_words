@@ -14,7 +14,7 @@ Examples:
 ## Run the REPL
 The main.rs file is a REPL that allows numbers to be entered and the output to be viewed
 - Clone the repository
-- Make sure you have cargo ([install rust](https://www.markdownguide.org))
+- Make sure you have cargo ([install rust](https://www.rust-lang.org/tools/install))
 - Run the following command in the terminal
 ```shell
 cargo run
