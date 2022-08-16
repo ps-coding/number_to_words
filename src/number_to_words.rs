@@ -22,7 +22,7 @@ const DEFAULT_LEVEL_WORDS: [&str; 7] = [
 Converts an **```i64``` to word form**
 
 
-Internally uses ```unsigned_number_to_words``` (conversion safety is that the upper bound of a ```u64``` is at least that of a ```i64```)
+Internally uses ```unsigned_number_to_words``` (conversion safety is that the upper bound of a ```u64``` is at least that of a ```i64``` so there will be no overflow)
 */
 pub fn signed_number_to_words(number: i64, level_words: Option<Vec<&str>>) -> String {
     if number >= 0 {
@@ -162,7 +162,7 @@ fn group_number_to_words(number: u64) -> String {
         format!("{} {}", first_part, last_part).trim().to_string()
     } else {
         panic!(
-            "Internal error - Invalid number passed to hundreds_number_to_words: {}.",
+            "Internal error - Invalid number passed to group_number_to_words: {}.",
             number
         )
     }
