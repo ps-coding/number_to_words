@@ -2,7 +2,7 @@
 
 This is a **library that converts a number to words**. It is written completely in rust and does not require any third-party dependencies.
 
-## Examples:
+## Examples
 
 - `unsigned_number_to_words(0)` => `"zero"`
 - `unsigned_number_to_words(12)` => `"twelve"`
