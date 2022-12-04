@@ -4,7 +4,7 @@ A **REPL** to demonstrate the capabilities of the number_to_words library
 This is ***not*** a part of the main library implementation
 */
 
-mod number_to_words;
+mod lib;
 
 fn main() {
     loop {
@@ -20,7 +20,7 @@ fn main() {
         } else {
             match input.parse::<i64>() {
                 Ok(number) => {
-                    let number_string = number_to_words::signed_number_to_words(number, None);
+                    let number_string = lib::signed_number_to_words(number, None);
 
                     println!("Value: {}", number_string);
                 }

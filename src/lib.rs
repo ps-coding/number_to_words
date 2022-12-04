@@ -201,7 +201,7 @@ mod tests {
     */
     #[test]
     fn test_positive() {
-        assert_eq!(super::unsigned_number_to_words(1234567890, None), "one billion two hundred thirty-four million five hundred sixty-seven thousand eight hundred ninety");
+        assert_eq!(lib::unsigned_number_to_words(1234567890, None), "one billion two hundred thirty-four million five hundred sixty-seven thousand eight hundred ninety");
     }
 
     /**
@@ -209,6 +209,6 @@ mod tests {
     */
     #[test]
     fn test_negative() {
-        assert_eq!(super::signed_number_to_words(-1234567890, None), "negative one billion two hundred thirty-four million five hundred sixty-seven thousand eight hundred ninety");
+        assert_eq!(lib::signed_number_to_words(-1234567890, None), "negative one billion two hundred thirty-four million five hundred sixty-seven thousand eight hundred ninety");
     }
 }
