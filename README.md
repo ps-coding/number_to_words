@@ -1,6 +1,6 @@
 # number_to_words
 
-This is a **library that converts a number to words**. It is written completely in rust and does not require any third-party dependencies.
+This is a **library that converts a number to words**. It is written completely in rust and does not require any third-party dependencies. It allows the entering of custom place value words to extend the algorithm to numbers of technically infinite size, although practically this implementation is limited by the size of the Rust integer data types.
 
 ## Examples
 
