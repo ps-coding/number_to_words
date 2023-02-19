@@ -196,12 +196,13 @@ fn multiple_of_ten_number_to_words(number: u64) -> String {
 */
 #[cfg(test)]
 mod tests {
+    use super::*;
     /**
     Tests a **positive input** and the ```unsigned_number_to_words``` function
     */
     #[test]
     fn test_positive() {
-        assert_eq!(lib::unsigned_number_to_words(1234567890, None), "one billion two hundred thirty-four million five hundred sixty-seven thousand eight hundred ninety");
+        assert_eq!(unsigned_number_to_words(1234567890, None), "one billion two hundred thirty-four million five hundred sixty-seven thousand eight hundred ninety");
     }
 
     /**
@@ -209,6 +210,6 @@ mod tests {
     */
     #[test]
     fn test_negative() {
-        assert_eq!(lib::signed_number_to_words(-1234567890, None), "negative one billion two hundred thirty-four million five hundred sixty-seven thousand eight hundred ninety");
+        assert_eq!(signed_number_to_words(-1234567890, None), "negative one billion two hundred thirty-four million five hundred sixty-seven thousand eight hundred ninety");
     }
 }

@@ -4,7 +4,7 @@ A **REPL** to demonstrate the capabilities of the number_to_words library
 This is ***not*** a part of the main library implementation
 */
 
-mod lib;
+use number_to_words as lib;
 
 fn main() {
     loop {
