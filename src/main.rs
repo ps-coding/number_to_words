@@ -17,7 +17,7 @@ fn main() {
         if input == "quit" || input == "exit" || input == "stop" || input == "bye" {
             println!("Status: exiting...");
             break;
-        } else {
+        } else if input.chars().nth(0) == Some('-') {
             match input.parse::<i64>() {
                 Ok(number) => {
                     let number_string = lib::signed_number_to_words(number, None);
@@ -26,6 +26,17 @@ fn main() {
                 }
                 Err(_) => {
                     println!("Error: please enter a valid (i64) integer")
+                }
+            }
+        } else {
+            match input.parse::<u64>() {
+                Ok(number) => {
+                    let number_string = lib::unsigned_number_to_words(number, None);
+
+                    println!("Value: {}", number_string);
+                }
+                Err(_) => {
+                    println!("Error: please enter a valid (u64) integer")
                 }
             }
         }
