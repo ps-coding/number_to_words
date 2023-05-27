@@ -25,7 +25,7 @@ fn main() {
                     println!("Value: {}", number_string);
                 }
                 Err(_) => {
-                    println!("Error: please enter a valid (u64) integer")
+                    println!("Error: please enter a valid (i64) integer")
                 }
             }
         }
