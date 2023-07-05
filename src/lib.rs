@@ -41,10 +41,7 @@ pub fn unsigned_number_to_words(number: u64, level_words: Option<Vec<&str>>) -> 
         "zero".to_string()
     } else {
         let number_string = number.to_string();
-        let level_words = match level_words {
-            Some(level_words) => level_words,
-            None => DEFAULT_LEVEL_WORDS.to_vec(),
-        };
+        let level_words = level_words.unwrap_or(DEFAULT_LEVEL_WORDS.to_vec());
 
         let mut groups = vec![];
 
