@@ -8,47 +8,61 @@ Custom level_words are supported for use instead of the default place values fou
 /**
 **Default place value** strings that cover all values up to ```u64::MAX``` (used if ```None``` is passed in to any of the functions as the level_words argument)
 */
-const DEFAULT_LEVEL_WORDS: [&str; 7] = [
-    "",
+const DEFAULT_LEVEL_WORDS: [&str; 11] = [
     "thousand",
     "million",
     "billion",
     "trillion",
     "quadrillion",
     "quintillion",
+    "sextillion",
+    "septillion",
+    "octillion",
+    "nonillion",
+    "decillion",
 ];
 
 /**
-Converts an **```i64``` to word form**
-
-
-Internally uses ```unsigned_number_to_words``` (conversion safety is that the upper bound of a ```u64``` is at least that of a ```i64``` so there will be no overflow)
+Converts an integer into its word form, taking the integer as a string slice of arbitrary length and an optional array slice for the place values ("thousand", "million", etc.)
 */
-pub fn signed_number_to_words(number: i64, level_words: Option<Vec<&str>>) -> String {
-    if number >= 0 {
-        unsigned_number_to_words(number as u64, level_words)
+pub fn number_to_words(number: &str, level_words: Option<&[&str]>) -> Option<String> {
+    let number = number.trim();
+
+    if number.is_empty() {
+        return None;
+    }
+
+    if !number.starts_with('-') {
+        unsigned_number_to_words(number, level_words)
     } else {
-        let unsigned_string = unsigned_number_to_words((-number) as u64, level_words);
-        format!("negative {}", unsigned_string)
+        let mut chars = number.chars();
+        chars.next();
+        let number = chars.as_str();
+
+        let unsigned_string = unsigned_number_to_words(number, level_words)?;
+        Some(format!("negative {}", unsigned_string))
     }
 }
 
 /**
-Converts a **```u64``` to word form**
+**Internal helper function** that returns correct output for all positive inputs
 */
-pub fn unsigned_number_to_words(number: u64, level_words: Option<Vec<&str>>) -> String {
-    if number == 0 {
-        "zero".to_string()
+fn unsigned_number_to_words(number: &str, level_words: Option<&[&str]>) -> Option<String> {
+    if !number.chars().all(char::is_numeric) {
+        return None;
+    }
+
+    if number == "0" {
+        Some("zero".to_string())
     } else {
-        let number_string = number.to_string();
-        let level_words = level_words.unwrap_or(DEFAULT_LEVEL_WORDS.to_vec());
+        let level_words = level_words.unwrap_or(&DEFAULT_LEVEL_WORDS);
 
         let mut groups = vec![];
 
-        let mut number_characters = number_string.chars();
+        let mut number_characters = number.chars();
         let mut offset = 0;
 
-        while offset <= number_string.len() {
+        while offset <= number.len() {
             let third_digit_number = number_characters
                 .next_back()
                 .unwrap_or('0')
@@ -81,7 +95,12 @@ pub fn unsigned_number_to_words(number: u64, level_words: Option<Vec<&str>>) -> 
             let group_word = group_number_to_words(*group);
 
             if !group_word.is_empty() {
-                let group_level = level_words[index];
+                let mut group_level = "";
+
+                if index > 0 {
+                    group_level = level_words.get(index - 1)?;
+                }
+
                 let group_string = format!("{} {}", group_word, group_level);
 
                 results.push(group_string);
@@ -90,12 +109,12 @@ pub fn unsigned_number_to_words(number: u64, level_words: Option<Vec<&str>>) -> 
 
         results.reverse();
 
-        results.join(" ").trim_end().to_string()
+        Some(results.join(" ").trim_end().to_string())
     }
 }
 
 /**
-**Internal helper function** than returns correct output for inputs less than 1000
+**Internal helper function** that returns correct output for inputs less than 1000
 */
 fn group_number_to_words(number: u64) -> String {
     if number < 20 {
@@ -189,24 +208,24 @@ fn multiple_of_ten_number_to_words(number: u64) -> String {
 }
 
 /**
-**Basic test suite** for ```number_to_words``` testing the ```signed_number_to_words``` and ```unsigned_number_to_words``` functions
+**Basic test suite** for ```number_to_words```
 */
 #[cfg(test)]
 mod tests {
     use super::*;
     /**
-    Tests a **positive input** and the ```unsigned_number_to_words``` function
+    Tests a **positive input**
     */
     #[test]
     fn test_positive() {
-        assert_eq!(unsigned_number_to_words(1234567890, None), "one billion two hundred thirty-four million five hundred sixty-seven thousand eight hundred ninety");
+        assert_eq!(number_to_words("1234567890", None), Some("one billion two hundred thirty-four million five hundred sixty-seven thousand eight hundred ninety".to_string()));
     }
 
     /**
-    Tests a **negative input** and the ```signed_number_to_words``` function
+    Tests a **negative input**
     */
     #[test]
     fn test_negative() {
-        assert_eq!(signed_number_to_words(-1234567890, None), "negative one billion two hundred thirty-four million five hundred sixty-seven thousand eight hundred ninety");
+        assert_eq!(number_to_words("-1234567890", None), Some("negative one billion two hundred thirty-four million five hundred sixty-seven thousand eight hundred ninety".to_string()));
     }
 }
