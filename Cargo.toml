@@ -2,6 +2,10 @@
 name = "number_to_words"
 version = "1.0.0"
 edition = "2021"
+license = "MIT"
+description = "A Rust library for converting numbers to English words, extensible to arbitrary length numbers."
+keywords = ["number", "words", "conversion", "text", "english", "extensible"]
+categories = ["text-processing"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
