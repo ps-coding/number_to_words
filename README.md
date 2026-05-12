@@ -27,8 +27,8 @@ This library is very powerful, but there are a few things to be aware of.
 
 ## Files
 
-- _lib.rs_ is the _library_
-- _main.rs_ is just an _interactive converter_ using the library
+- `lib.rs` is the _library_
+- `main.rs` is just an _interactive converter_ using the library
 
 ## Interactive Converter Usage
 
